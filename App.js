@@ -17,6 +17,8 @@ export default function App() {
           options={{ title: "Welcome" }}
         />
         <Stack.Screen name="Select Tasks" component={ConfigScreen1} />
+        <Stack.Screen name="Select Team Members" component={ConfigScreen2} />
+        <Stack.Screen name="Randomize" component={Randomize} />
       </Stack.Navigator>
     </NavigationContainer>
   );
@@ -27,7 +29,7 @@ const HomeScreen = ({ navigation }) => {
     <View>
       <Button
         title="Go to Application"
-        onPress={() => navigation.navigate("Select Tasks", { name: "Jane" })}
+        onPress={() => navigation.navigate("Select Tasks")}
       />
     </View>
   );
@@ -39,6 +41,38 @@ const ConfigScreen1 = ({ navigation, route }) => {
       <Input placeholder="task 1"></Input>
       <Input placeholder="task 2"></Input>
       <Input placeholder="task 3"></Input>
+      <Button
+        title="Next Page"
+        onPress={() => navigation.navigate("Select Team Members")}
+      ></Button>
+    </View>
+  );
+};
+
+const ConfigScreen2 = ({ navigation, route }) => {
+  return (
+    <View>
+      <Input placeholder="Team Member 1"></Input>
+      <Input placeholder="Team Member 2"></Input>
+      <Input placeholder="Team Member 3"></Input>
+      <Button
+        title="Next Page"
+        onPress={() => navigation.navigate("Randomize")}
+      ></Button>
+    </View>
+  );
+};
+
+const Randomize = ({ navigation, route }) => {
+  return (
+    <View>
+      <Input placeholder="Team Member 1"></Input>
+      <Input placeholder="Team Member 2"></Input>
+      <Input placeholder="Team Member 3"></Input>
+      <Button
+        title="Randomize"
+        onPress={() => navigation.navigate("Randomize")}
+      ></Button>
     </View>
   );
 };
