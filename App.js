@@ -10,6 +10,7 @@ import {
 import "react-native-gesture-handler";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
+import List from "./Components/List";
 
 const Stack = createStackNavigator();
 
@@ -50,14 +51,6 @@ const SelectTasks = ({ navigation, route }) => {
     setText("");
   };
 
-  const tasksList = tasks.map((task) => {
-    return (
-      <View>
-        <Text>-{task}</Text>
-      </View>
-    );
-  });
-
   return (
     <View>
       <View style={styles.container}>
@@ -77,7 +70,7 @@ const SelectTasks = ({ navigation, route }) => {
       </TouchableOpacity>
       <View>
         <Text>Tasks</Text>
-        {tasksList}
+        <List list={tasks}></List>
       </View>
       <Button
         title="Next"
@@ -95,14 +88,6 @@ const SelectMembers = ({ navigation, route }) => {
     setMembers([...members, text]);
     setText("");
   };
-
-  const membersList = members.map((member) => {
-    return (
-      <View>
-        <Text>-{member}</Text>
-      </View>
-    );
-  });
 
   return (
     <View>
@@ -123,7 +108,7 @@ const SelectMembers = ({ navigation, route }) => {
       </TouchableOpacity>
       <View>
         <Text>Members</Text>
-        {membersList}
+        <List list={members}></List>
       </View>
       <Button
         title="Randomize"
