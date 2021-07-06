@@ -21,6 +21,7 @@ class MembersInput extends Component {
 
   addMember = (member) => {
     this.setState({ members: [...this.state.members, this.state.value] });
+    this.setState({ value: "" });
   };
 
   render() {
@@ -34,6 +35,7 @@ class MembersInput extends Component {
     return (
       <View style={styles.container}>
         <TextInput
+          value={this.state.value}
           style={styles.input}
           underlineColorAndroid="transparent"
           placeholder=" Add New Members"

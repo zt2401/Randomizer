@@ -21,6 +21,7 @@ class TasksInput extends Component {
 
   addTask = (task) => {
     this.setState({ tasks: [...this.state.tasks, this.state.value] });
+    this.setState({ value: "" });
   };
 
   render() {
@@ -34,12 +35,14 @@ class TasksInput extends Component {
     return (
       <View style={styles.container}>
         <TextInput
+          value={this.state.value}
           style={styles.input}
           underlineColorAndroid="transparent"
           placeholder=" Add New Task"
           placeholderTextColor="#9a73ef"
           autoCapitalize="none"
           onChangeText={this.onChangeValue}
+          clearButtonMode="always"
         />
         <TouchableOpacity
           style={styles.submitButton}
