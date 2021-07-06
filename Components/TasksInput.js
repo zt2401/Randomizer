@@ -9,7 +9,7 @@ import {
   Flatlist,
 } from "react-native";
 
-class Inputs extends Component {
+class TasksInput extends Component {
   state = {
     tasks: [],
     value: "",
@@ -36,7 +36,7 @@ class Inputs extends Component {
         <TextInput
           style={styles.input}
           underlineColorAndroid="transparent"
-          placeholder="Type New Task"
+          placeholder=" Add New Task"
           placeholderTextColor="#9a73ef"
           autoCapitalize="none"
           onChangeText={this.onChangeValue}
@@ -55,7 +55,7 @@ class Inputs extends Component {
     );
   }
 }
-export default Inputs;
+export default TasksInput;
 
 const styles = StyleSheet.create({
   container: {

@@ -3,7 +3,8 @@ import { StyleSheet, Text, View, Button, TextInput } from "react-native";
 import "react-native-gesture-handler";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
-import Input from "./Components/Input";
+import TasksInput from "./Components/TasksInput";
+import MembersInput from "./Components/MembersInput";
 
 const Stack = createStackNavigator();
 
@@ -42,7 +43,7 @@ const ConfigScreen1 = ({ navigation, route }) => {
 
   return (
     <View>
-      <Input placeholder="task 1"></Input>
+      <TasksInput placeholder="task 1"></TasksInput>
       <Button
         title="Next"
         onPress={() => navigation.navigate("Select Team Members")}
@@ -54,11 +55,9 @@ const ConfigScreen1 = ({ navigation, route }) => {
 const ConfigScreen2 = ({ navigation, route }) => {
   return (
     <View>
-      <Input placeholder="Team Member 1"></Input>
-      <Input placeholder="Team Member 2"></Input>
-      <Input placeholder="Team Member 3"></Input>
+      <MembersInput />
       <Button
-        title="Randoomize"
+        title="Randomize"
         onPress={() => navigation.navigate("Randomize")}
       ></Button>
     </View>
@@ -66,13 +65,7 @@ const ConfigScreen2 = ({ navigation, route }) => {
 };
 
 const Randomize = ({ navigation, route }) => {
-  return (
-    <View>
-      <Input placeholder="Team Member 1"></Input>
-      <Input placeholder="Team Member 2"></Input>
-      <Input placeholder="Team Member 3"></Input>
-    </View>
-  );
+  return <View></View>;
 };
 
 const styles = StyleSheet.create({
