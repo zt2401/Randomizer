@@ -3,16 +3,21 @@ import {
   StyleSheet,
   Text,
   View,
-  Button,
   TextInput,
   TouchableOpacity,
+  Dimensions,
+  Platform,
 } from "react-native";
 import "react-native-gesture-handler";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import ConfigPage from "./Components/ConfigPage";
+import Button from "./Components/Button";
 
 const Stack = createStackNavigator();
+
+var deviceHeight = Dimensions.get("window").height;
+var deviceWidth = Dimensions.get("window").width;
 
 export default function App() {
   var [tasks, setTasks] = React.useState([]);
@@ -50,8 +55,8 @@ export default function App() {
 
 const HomeScreen = ({ navigation }) => {
   return (
-    <View>
-      <Text>
+    <View style={styles.container}>
+      <Text style={styles.intro}>
         Sharing responsibility by rotating tasks gives team members practice and
         creates a stronger team. This app helps teams rotate tasks randomly
         without the hassle of asking each other whose turn it is.
@@ -72,25 +77,32 @@ const SelectTasks = ({ navigation, route, tasks, setTasks }) => {
     setText("");
   };
 
+  const removeTask = (item) => {
+    const index = tasks.indexOf(item);
+    tasks.splice(index, 1);
+  };
+
   const tasksList = tasks.map((task) => {
     return (
-      <View>
-        <Text>-{task}</Text>
+      <View style={styles.card}>
+        <Text>{task}</Text>
       </View>
     );
   });
 
   return (
-    <View>
+    <View style={styles.container}>
       <ConfigPage
         text={text}
         setText={setText}
-        list={tasksList}
         addItem={() => addTask()}
         buttonLabel="Add Tasks"
         placeholder=" Type New Tasks"
-        listName="Tasks"
       />
+      <View>
+        <Text>Tasks</Text>
+        {tasksList}
+      </View>
       <Button
         title="Next"
         onPress={() => navigation.navigate("Select Team Members")}
@@ -109,23 +121,25 @@ const SelectMembers = ({ navigation, route, members, setMembers }) => {
 
   const membersList = members.map((member) => {
     return (
-      <View>
-        <Text>-{member}</Text>
+      <View style={styles.card}>
+        <Text>{member}</Text>
       </View>
     );
   });
 
   return (
-    <View>
+    <View style={styles.container}>
       <ConfigPage
         text={text}
         setText={setText}
-        list={membersList}
         addItem={() => addMember()}
         buttonLabel="Add Members"
         placeholder=" Type New Members"
-        listName="Members"
       />
+      <View>
+        <Text>Members</Text>
+        {membersList}
+      </View>
       <Button
         title="Randomize"
         onPress={() => navigation.navigate("Randomize")}
@@ -137,8 +151,8 @@ const SelectMembers = ({ navigation, route, members, setMembers }) => {
 const Randomize = ({ navigation, route, tasks, members }) => {
   const list = tasks.map((task) => {
     return (
-      <View>
-        <Text>-{task}-</Text>
+      <View style={styles.assign}>
+        <Text style={styles.tasks}>{task}</Text>
         <Text>{members[Math.floor(Math.random() * members.length)]}</Text>
       </View>
     );
@@ -147,27 +161,26 @@ const Randomize = ({ navigation, route, tasks, members }) => {
 };
 
 const styles = StyleSheet.create({
-  input: {
-    height: 40,
-    margin: 12,
-    borderWidth: 1,
-  },
-  submitButton: {
-    backgroundColor: "#7a42f4",
-    padding: 10,
-    margin: 15,
-    height: 40,
-  },
-  submitButtonText: {
-    color: "white",
-  },
   container: {
-    paddingTop: 23,
+    height: deviceHeight,
+    width: deviceWidth,
   },
-  input: {
-    margin: 15,
-    height: 40,
-    borderColor: "#7a42f4",
+  card: {
     borderWidth: 1,
+    borderRadius: 10,
+    width: 100,
+    height: 25,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  intro: {
+    fontSize: 20,
+  },
+  assign: {
+    borderWidth: 1,
+    padding: 10,
+  },
+  tasks: {
+    fontWeight: "bold",
   },
 });

@@ -24,7 +24,7 @@ const ConfigPage = ({
           style={styles.input}
           underlineColorAndroid="transparent"
           placeholder={placeholder}
-          placeholderTextColor="#9a73ef"
+          placeholderTextColor="#d4af37"
           autoCapitalize="none"
           onChangeText={(text) => setText(text)}
           clearButtonMode="always"
@@ -33,22 +33,14 @@ const ConfigPage = ({
       <TouchableOpacity style={styles.submitButton} onPress={() => addItem()}>
         <Text style={styles.submitButtonText}> {buttonLabel} </Text>
       </TouchableOpacity>
-      <View>
-        <Text>{listName}</Text>
-        {list}
-      </View>
     </View>
   );
 };
 
 const styles = StyleSheet.create({
-  input: {
-    height: 40,
-    margin: 12,
-    borderWidth: 1,
-  },
   submitButton: {
-    backgroundColor: "#7a42f4",
+    backgroundColor: "#d4af37",
+    borderRadius: 10,
     padding: 10,
     margin: 15,
     height: 40,
@@ -62,8 +54,9 @@ const styles = StyleSheet.create({
   input: {
     margin: 15,
     height: 40,
-    borderColor: "#7a42f4",
+    borderColor: "#d4af37",
     borderWidth: 1,
+    borderRadius: 10,
   },
 });
 
