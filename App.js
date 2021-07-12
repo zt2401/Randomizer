@@ -14,6 +14,9 @@ import { createStackNavigator } from "@react-navigation/stack";
 const Stack = createStackNavigator();
 
 export default function App() {
+  var [tasks, setTasks] = React.useState([]);
+  var [members, setMembers] = React.useState([]);
+
   return (
     <NavigationContainer>
       <Stack.Navigator>
@@ -22,9 +25,23 @@ export default function App() {
           component={HomeScreen}
           options={{ title: "Randomizer" }}
         />
-        <Stack.Screen name="Select Tasks" component={SelectTasks} />
-        <Stack.Screen name="Select Team Members" component={SelectMembers} />
-        <Stack.Screen name="Randomize" component={Randomize} />
+        <Stack.Screen name="Select Tasks">
+          {(props) => (
+            <SelectTasks {...props} tasks={tasks} setTasks={setTasks} />
+          )}
+        </Stack.Screen>
+        <Stack.Screen name="Select Team Members">
+          {(props) => (
+            <SelectMembers
+              {...props}
+              members={members}
+              setMembers={setMembers}
+            />
+          )}
+        </Stack.Screen>
+        <Stack.Screen name="Randomize">
+          {(props) => <Randomize {...props} tasks={tasks} members={members} />}
+        </Stack.Screen>
       </Stack.Navigator>
     </NavigationContainer>
   );
@@ -33,6 +50,11 @@ export default function App() {
 const HomeScreen = ({ navigation }) => {
   return (
     <View>
+      <Text>
+        Sharing responsibility by rotating tasks gives team members practice and
+        creates a stronger team. This app helps teams rotate tasks randomly
+        without the hassle of asking each other whose turn it is.
+      </Text>
       <Button
         title="Start Randomizing"
         onPress={() => navigation.navigate("Select Tasks")}
@@ -41,8 +63,7 @@ const HomeScreen = ({ navigation }) => {
   );
 };
 
-const SelectTasks = ({ navigation, route }) => {
-  var [tasks, setTasks] = React.useState([]);
+const SelectTasks = ({ navigation, route, tasks, setTasks }) => {
   var [text, setText] = React.useState("");
 
   const addTask = () => {
@@ -87,8 +108,7 @@ const SelectTasks = ({ navigation, route }) => {
   );
 };
 
-const SelectMembers = ({ navigation, route }) => {
-  var [members, setMembers] = React.useState([]);
+const SelectMembers = ({ navigation, route, members, setMembers }) => {
   var [text, setText] = React.useState("");
 
   const addMember = () => {
@@ -133,8 +153,16 @@ const SelectMembers = ({ navigation, route }) => {
   );
 };
 
-const Randomize = ({ navigation, route }) => {
-  return <View></View>;
+const Randomize = ({ navigation, route, tasks, members }) => {
+  const list = tasks.map((task) => {
+    return (
+      <View>
+        <Text>-{task}-</Text>
+        <Text>{members[Math.floor(Math.random() * members.length)]}</Text>
+      </View>
+    );
+  });
+  return <View>{list}</View>;
 };
 
 const styles = StyleSheet.create({
