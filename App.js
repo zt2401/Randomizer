@@ -10,6 +10,7 @@ import {
 import "react-native-gesture-handler";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
+import ConfigPage from "./Components/ConfigPage";
 
 const Stack = createStackNavigator();
 
@@ -81,25 +82,15 @@ const SelectTasks = ({ navigation, route, tasks, setTasks }) => {
 
   return (
     <View>
-      <View style={styles.container}>
-        <TextInput
-          value={text}
-          style={styles.input}
-          underlineColorAndroid="transparent"
-          placeholder="Type New Tasks"
-          placeholderTextColor="#9a73ef"
-          autoCapitalize="none"
-          onChangeText={(text) => setText(text)}
-          clearButtonMode="always"
-        />
-      </View>
-      <TouchableOpacity style={styles.submitButton} onPress={() => addTask()}>
-        <Text style={styles.submitButtonText}> Add Task </Text>
-      </TouchableOpacity>
-      <View>
-        <Text>Tasks</Text>
-        {tasksList}
-      </View>
+      <ConfigPage
+        text={text}
+        setText={setText}
+        list={tasksList}
+        addItem={() => addTask()}
+        buttonLabel="Add Tasks"
+        placeholder=" Type New Tasks"
+        listName="Tasks"
+      />
       <Button
         title="Next"
         onPress={() => navigation.navigate("Select Team Members")}
@@ -126,25 +117,15 @@ const SelectMembers = ({ navigation, route, members, setMembers }) => {
 
   return (
     <View>
-      <View style={styles.container}>
-        <TextInput
-          value={text}
-          style={styles.input}
-          underlineColorAndroid="transparent"
-          placeholder="Type New Members"
-          placeholderTextColor="#9a73ef"
-          autoCapitalize="none"
-          onChangeText={(text) => setText(text)}
-          clearButtonMode="always"
-        />
-      </View>
-      <TouchableOpacity style={styles.submitButton} onPress={() => addMember()}>
-        <Text style={styles.submitButtonText}> Add Member </Text>
-      </TouchableOpacity>
-      <View>
-        <Text>Members</Text>
-        {membersList}
-      </View>
+      <ConfigPage
+        text={text}
+        setText={setText}
+        list={membersList}
+        addItem={() => addMember()}
+        buttonLabel="Add Members"
+        placeholder=" Type New Members"
+        listName="Members"
+      />
       <Button
         title="Randomize"
         onPress={() => navigation.navigate("Randomize")}
