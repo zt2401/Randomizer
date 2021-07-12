@@ -5,7 +5,12 @@ import {
   TouchableOpacity,
   Text,
   StyleSheet,
+  Dimensions,
+  Platform,
 } from "react-native";
+
+var deviceHeight = Dimensions.get("window").height;
+var deviceWidth = Dimensions.get("window").width;
 
 const ConfigPage = ({
   text,
@@ -24,7 +29,7 @@ const ConfigPage = ({
           style={styles.input}
           underlineColorAndroid="transparent"
           placeholder={placeholder}
-          placeholderTextColor="#d4af37"
+          placeholderTextColor="#6C5B7B"
           autoCapitalize="none"
           onChangeText={(text) => setText(text)}
           clearButtonMode="always"
@@ -39,7 +44,7 @@ const ConfigPage = ({
 
 const styles = StyleSheet.create({
   submitButton: {
-    backgroundColor: "#d4af37",
+    backgroundColor: "#6C5B7B",
     borderRadius: 10,
     padding: 10,
     margin: 15,
@@ -50,11 +55,12 @@ const styles = StyleSheet.create({
   },
   container: {
     paddingTop: 23,
+    width: deviceWidth,
   },
   input: {
     margin: 15,
     height: 40,
-    borderColor: "#d4af37",
+    borderColor: "#6C5B7B",
     borderWidth: 1,
     borderRadius: 10,
   },

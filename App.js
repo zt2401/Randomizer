@@ -93,17 +93,18 @@ const SelectTasks = ({ navigation, route, tasks, setTasks }) => {
 
   return (
     <View style={styles.container}>
+      <View style={styles.list}>
+        <Text style={{ fontSize: 40 }}>Tasks</Text>
+        {tasksList}
+      </View>
       <ConfigPage
         text={text}
         setText={setText}
         addItem={() => addTask()}
         buttonLabel="Add Tasks"
         placeholder=" Type New Tasks"
+        style={styles.config}
       />
-      <View>
-        <Text>Tasks</Text>
-        {tasksList}
-      </View>
       <Button
         title="Next"
         onPress={() => navigation.navigate("Select Team Members")}
@@ -136,17 +137,18 @@ const SelectMembers = ({ navigation, route, members, setMembers }) => {
 
   return (
     <View style={styles.container}>
+      <View style={styles.list}>
+        <Text style={{ fontSize: 40 }}>Members</Text>
+        {membersList}
+      </View>
       <ConfigPage
         text={text}
         setText={setText}
         addItem={() => addMember()}
         buttonLabel="Add Members"
         placeholder=" Type New Members"
+        style={styles.config}
       />
-      <View>
-        <Text>Members</Text>
-        {membersList}
-      </View>
       <Button
         title="Randomize"
         onPress={() => navigation.navigate("Randomize")}
@@ -158,9 +160,11 @@ const SelectMembers = ({ navigation, route, members, setMembers }) => {
 const Randomize = ({ navigation, route, tasks, members }) => {
   const list = tasks.map((task) => {
     return (
-      <View style={styles.assign}>
-        <Text style={styles.tasks}>{task}</Text>
-        <Text>{members[Math.floor(Math.random() * members.length)]}</Text>
+      <View style={styles.container}>
+        <View style={styles.assign}>
+          <Text style={styles.tasks}>{task}</Text>
+          <Text>{members[Math.floor(Math.random() * members.length)]}</Text>
+        </View>
       </View>
     );
   });
@@ -171,14 +175,19 @@ const styles = StyleSheet.create({
   container: {
     height: deviceHeight,
     width: deviceWidth,
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: "#F8B195",
   },
   card: {
     borderWidth: 1,
     borderRadius: 10,
-    width: 100,
-    height: 25,
+    width: deviceWidth / 2,
+    height: 40,
     justifyContent: "center",
     alignItems: "center",
+    margin: 5,
+    backgroundColor: "#F67280",
   },
   intro: {
     fontSize: 20,
@@ -186,8 +195,18 @@ const styles = StyleSheet.create({
   assign: {
     borderWidth: 1,
     padding: 10,
+    width: deviceWidth / 2,
   },
   tasks: {
     fontWeight: "bold",
+  },
+  list: {
+    justifyContent: "center",
+    alignItems: "center",
+    position: "absolute",
+    top: 0,
+  },
+  config: {
+    bottom: 20,
   },
 });
