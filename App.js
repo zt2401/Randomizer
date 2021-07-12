@@ -7,6 +7,7 @@ import {
   TouchableOpacity,
   Dimensions,
   Platform,
+  Image,
 } from "react-native";
 import "react-native-gesture-handler";
 import { NavigationContainer } from "@react-navigation/native";
@@ -29,14 +30,46 @@ export default function App() {
         <Stack.Screen
           name="Home"
           component={HomeScreen}
-          options={{ title: "Randomizer" }}
+          // options={{ title: "Randomizer" }}
+          options={{
+            title: "Randomizer",
+            headerStyle: {
+              backgroundColor: "#363636",
+            },
+            headerTintColor: "#fff",
+            headerTitleStyle: {
+              fontWeight: "bold",
+            },
+          }}
         />
-        <Stack.Screen name="Select Tasks">
+        <Stack.Screen
+          name="Select Tasks"
+          options={{
+            headerStyle: {
+              backgroundColor: "#363636",
+            },
+            headerTintColor: "#fff",
+            headerTitleStyle: {
+              fontWeight: "bold",
+            },
+          }}
+        >
           {(props) => (
             <SelectTasks {...props} tasks={tasks} setTasks={setTasks} />
           )}
         </Stack.Screen>
-        <Stack.Screen name="Select Team Members">
+        <Stack.Screen
+          name="Select Team Members"
+          options={{
+            headerStyle: {
+              backgroundColor: "#363636",
+            },
+            headerTintColor: "#fff",
+            headerTitleStyle: {
+              fontWeight: "bold",
+            },
+          }}
+        >
           {(props) => (
             <SelectMembers
               {...props}
@@ -45,7 +78,18 @@ export default function App() {
             />
           )}
         </Stack.Screen>
-        <Stack.Screen name="Randomize">
+        <Stack.Screen
+          name="Randomize"
+          options={{
+            headerStyle: {
+              backgroundColor: "#363636",
+            },
+            headerTintColor: "#fff",
+            headerTitleStyle: {
+              fontWeight: "bold",
+            },
+          }}
+        >
           {(props) => <Randomize {...props} tasks={tasks} members={members} />}
         </Stack.Screen>
       </Stack.Navigator>
@@ -56,6 +100,7 @@ export default function App() {
 const HomeScreen = ({ navigation }) => {
   return (
     <View style={styles.container}>
+      <Image style={styles.dice} source={require("./Components/dice.png")} />
       <Text style={styles.intro}>
         Sharing responsibility by rotating tasks gives team members practice and
         creates a stronger team. This app helps teams rotate tasks randomly
@@ -97,14 +142,15 @@ const SelectTasks = ({ navigation, route, tasks, setTasks }) => {
         <Text style={{ fontSize: 40 }}>Tasks</Text>
         {tasksList}
       </View>
-      <ConfigPage
-        text={text}
-        setText={setText}
-        addItem={() => addTask()}
-        buttonLabel="Add Tasks"
-        placeholder=" Type New Tasks"
-        style={styles.config}
-      />
+      <View style={styles.config}>
+        <ConfigPage
+          text={text}
+          setText={setText}
+          addItem={() => addTask()}
+          buttonLabel="Add Tasks"
+          placeholder=" Type New Tasks"
+        />
+      </View>
       <Button
         title="Next"
         onPress={() => navigation.navigate("Select Team Members")}
@@ -129,7 +175,10 @@ const SelectMembers = ({ navigation, route, members, setMembers }) => {
 
   const membersList = members.map((member) => {
     return (
-      <TouchableOpacity style={styles.card} onPress={() => removeMember()}>
+      <TouchableOpacity
+        style={styles.card}
+        onPress={() => removeMember(member)}
+      >
         <Text>{member}</Text>
       </TouchableOpacity>
     );
@@ -141,14 +190,15 @@ const SelectMembers = ({ navigation, route, members, setMembers }) => {
         <Text style={{ fontSize: 40 }}>Members</Text>
         {membersList}
       </View>
-      <ConfigPage
-        text={text}
-        setText={setText}
-        addItem={() => addMember()}
-        buttonLabel="Add Members"
-        placeholder=" Type New Members"
-        style={styles.config}
-      />
+      <View style={styles.config}>
+        <ConfigPage
+          text={text}
+          setText={setText}
+          addItem={() => addMember()}
+          buttonLabel="Add Members"
+          placeholder=" Type New Members"
+        />
+      </View>
       <Button
         title="Randomize"
         onPress={() => navigation.navigate("Randomize")}
@@ -160,7 +210,7 @@ const SelectMembers = ({ navigation, route, members, setMembers }) => {
 const Randomize = ({ navigation, route, tasks, members }) => {
   const list = tasks.map((task) => {
     return (
-      <View style={styles.container}>
+      <View>
         <View style={styles.assign}>
           <Text style={styles.tasks}>{task}</Text>
           <Text>{members[Math.floor(Math.random() * members.length)]}</Text>
@@ -168,7 +218,7 @@ const Randomize = ({ navigation, route, tasks, members }) => {
       </View>
     );
   });
-  return <View>{list}</View>;
+  return <View style={styles.rand}>{list}</View>;
 };
 
 const styles = StyleSheet.create({
@@ -177,7 +227,7 @@ const styles = StyleSheet.create({
     width: deviceWidth,
     justifyContent: "center",
     alignItems: "center",
-    backgroundColor: "#F8B195",
+    backgroundColor: "#363636",
   },
   card: {
     borderWidth: 1,
@@ -187,15 +237,26 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     margin: 5,
-    backgroundColor: "#F67280",
+    backgroundColor: "#A8A7A7",
   },
   intro: {
     fontSize: 20,
+    backgroundColor: "#A8A7A7",
+    borderRadius: 20,
+    padding: 10,
   },
   assign: {
     borderWidth: 1,
     padding: 10,
     width: deviceWidth / 2,
+    borderWidth: 1,
+    borderRadius: 10,
+    width: deviceWidth / 2,
+    height: 40,
+    justifyContent: "center",
+    alignItems: "center",
+    margin: 5,
+    backgroundColor: "#A8A7A7",
   },
   tasks: {
     fontWeight: "bold",
@@ -207,6 +268,19 @@ const styles = StyleSheet.create({
     top: 0,
   },
   config: {
-    bottom: 20,
+    marginTop: 400,
+  },
+  rand: {
+    height: deviceHeight,
+    width: deviceWidth,
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: "#363636",
+  },
+  dice: {
+    height: 150,
+    width: 150,
+    position: "absolute",
+    bottom: 700,
   },
 });
