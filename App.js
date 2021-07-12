@@ -80,13 +80,14 @@ const SelectTasks = ({ navigation, route, tasks, setTasks }) => {
   const removeTask = (item) => {
     const index = tasks.indexOf(item);
     tasks.splice(index, 1);
+    setTasks([...tasks]);
   };
 
   const tasksList = tasks.map((task) => {
     return (
-      <View style={styles.card}>
+      <TouchableOpacity style={styles.card} onPress={() => removeTask(task)}>
         <Text>{task}</Text>
-      </View>
+      </TouchableOpacity>
     );
   });
 
@@ -119,11 +120,17 @@ const SelectMembers = ({ navigation, route, members, setMembers }) => {
     setText("");
   };
 
+  const removeMember = (item) => {
+    const index = members.indexOf(item);
+    members.splice(index, 1);
+    setMembers([...members]);
+  };
+
   const membersList = members.map((member) => {
     return (
-      <View style={styles.card}>
+      <TouchableOpacity style={styles.card} onPress={() => removeMember()}>
         <Text>{member}</Text>
-      </View>
+      </TouchableOpacity>
     );
   });
 
