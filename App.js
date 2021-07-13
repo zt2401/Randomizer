@@ -237,11 +237,11 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     margin: 5,
-    backgroundColor: "#A8A7A7",
+    backgroundColor: "#FECEAB",
   },
   intro: {
     fontSize: 20,
-    backgroundColor: "#A8A7A7",
+    backgroundColor: "#FECEAB",
     borderRadius: 20,
     padding: 10,
   },
