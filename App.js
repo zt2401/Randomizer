@@ -8,6 +8,7 @@ import {
   Dimensions,
   Platform,
   Image,
+  Alert,
 } from "react-native";
 import "react-native-gesture-handler";
 import { NavigationContainer } from "@react-navigation/native";
@@ -122,6 +123,17 @@ const SelectTasks = ({ navigation, route, tasks, setTasks }) => {
     setText("");
   };
 
+  const confirmRemove = (item) => {
+    Alert.alert("Confirm Delete", `Confirm you would like to delete ${item}`, [
+      {
+        text: "Cancel",
+        onPress: () => console.log("Cancel Pressed"),
+        style: "cancel",
+      },
+      { text: "OK", onPress: () => removeTask(item) },
+    ]);
+  };
+
   const removeTask = (item) => {
     const index = tasks.indexOf(item);
     tasks.splice(index, 1);
@@ -130,7 +142,7 @@ const SelectTasks = ({ navigation, route, tasks, setTasks }) => {
 
   const tasksList = tasks.map((task) => {
     return (
-      <TouchableOpacity style={styles.card} onPress={() => removeTask(task)}>
+      <TouchableOpacity style={styles.card} onPress={() => confirmRemove(task)}>
         <Text>{task}</Text>
       </TouchableOpacity>
     );
@@ -167,6 +179,17 @@ const SelectMembers = ({ navigation, route, members, setMembers }) => {
     setText("");
   };
 
+  const confirmRemove = (item) => {
+    Alert.alert("Confirm Delete", `Confirm you would like to delete ${item}`, [
+      {
+        text: "Cancel",
+        onPress: () => console.log("Cancel Pressed"),
+        style: "cancel",
+      },
+      { text: "OK", onPress: () => removeMember(item) },
+    ]);
+  };
+
   const removeMember = (item) => {
     const index = members.indexOf(item);
     members.splice(index, 1);
@@ -177,7 +200,7 @@ const SelectMembers = ({ navigation, route, members, setMembers }) => {
     return (
       <TouchableOpacity
         style={styles.card}
-        onPress={() => removeMember(member)}
+        onPress={() => confirmRemove(member)}
       >
         <Text>{member}</Text>
       </TouchableOpacity>
