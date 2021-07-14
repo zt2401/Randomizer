@@ -142,7 +142,11 @@ const SelectTasks = ({ navigation, route, tasks, setTasks }) => {
 
   const tasksList = tasks.map((task) => {
     return (
-      <TouchableOpacity style={styles.card} onPress={() => confirmRemove(task)}>
+      <TouchableOpacity
+        key={task}
+        style={styles.card}
+        onPress={() => confirmRemove(task)}
+      >
         <Text>{task}</Text>
       </TouchableOpacity>
     );
@@ -201,6 +205,7 @@ const SelectMembers = ({ navigation, route, members, setMembers }) => {
       <TouchableOpacity
         style={styles.card}
         onPress={() => confirmRemove(member)}
+        key={member}
       >
         <Text>{member}</Text>
       </TouchableOpacity>
@@ -233,7 +238,7 @@ const SelectMembers = ({ navigation, route, members, setMembers }) => {
 const Randomize = ({ navigation, route, tasks, members }) => {
   const list = tasks.map((task) => {
     return (
-      <View>
+      <View key={task}>
         <View style={styles.assign}>
           <Text style={styles.tasks}>{task}</Text>
           <Text>{members[Math.floor(Math.random() * members.length)]}</Text>
